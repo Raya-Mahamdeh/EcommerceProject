@@ -12,5 +12,6 @@ namespace EcommerceProject.API.Data
 
 
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Brand> Brands { get; set; }
     }
 }

@@ -33,19 +33,6 @@ namespace EcommerceProject.API.Controllers
         [HttpGet("{id}")]//("{id:int}")
         public IActionResult getById([FromRoute] int id)
         {
-            /*  var categoriesDto = new List<CreateCategoryDTO>();
-              var categories = context.Categories.FirstOrDefault(x => x.Id == id);
-
-                  categoriesDto.Add(new CreateCategoryDTO
-                  {
-                      Name = categories.Name,
-                  });
-
-              if (categoriesDto == null)
-              {
-                  return NotFound();
-              }
-              return Ok(categoriesDto);*/
 
             var categories = _context.Categories.Find(id);
             return categories == null ? NotFound() : Ok(categories);
