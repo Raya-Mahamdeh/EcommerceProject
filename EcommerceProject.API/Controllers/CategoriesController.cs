@@ -20,7 +20,7 @@ namespace EcommerceProject.API.Controllers
 
 
 
-        [HttpGet]
+        [HttpGet("")]
         public IActionResult getAll()
         {
 
@@ -70,13 +70,15 @@ namespace EcommerceProject.API.Controllers
 
         }
         //--------------------------------- Update -------------------------------------------
-        [HttpPatch]
-        public IActionResult updateCategory(int id, CreateCategoryDTO request)
+        [HttpPut("{id}")]
+        public IActionResult updateCategory( [FromRoute]int id,[FromBody] Category category)
         {
-            var category = _context.Categories.Find(id);
-            category.Name = request.Name;
+            var categoryInDb = _context.Categories.AsNoTracking().FirstOrDefault(C => C.Id == id);
+            if (categoryInDb == null)  return NotFound();
+            category.Id = categoryInDb.Id;
+            _context.Categories.Update(category);
             _context.SaveChanges();
-            return Ok(category);//200
+            return NoContent();//200
         }
 
 
